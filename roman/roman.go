@@ -9,9 +9,15 @@ import (
 func Rtoi(r string) (res int, err error) {
 	var lastNum int
 
-	for _, v := range r {
-		fmt.Println(strings.ToUpper(string(v)))
+	r = strings.TrimSuffix(r, "\n")
+	r = reverse(r)
 
+	err = checkRomRepeated(r)
+	if err != nil {
+		return
+	}
+
+	for _, v := range r {
 		switch strings.ToUpper(string(v)) {
 		case "I":
 			res = checkNum(1, lastNum, res)
@@ -43,15 +49,42 @@ func Rtoi(r string) (res int, err error) {
 	return
 }
 
-func checkNum(n, lastNum, num int) int {
-	fmt.Println("N: ", n)
-	fmt.Println("LastNum: ", lastNum)
-	fmt.Println("num: ", num)
-	fmt.Println("############################")
+func checkRomRepeated(r string) error {
+	r = strings.ToUpper(r)
 
+	switch {
+	case strings.Contains(r, "IIII"):
+		return fmt.Errorf("I Repeated more than 3 times")
+	case strings.Contains(r, "XXXX"):
+		return fmt.Errorf("X Repeated more than 3 times")
+	case strings.Contains(r, "CCCC"):
+		return fmt.Errorf("C Repeated more than 3 times")
+	case strings.Contains(r, "MMMM"):
+		return fmt.Errorf("M Repeated more than 3 times")
+	case strings.Contains(r, "DD"):
+		return fmt.Errorf("D Repeated")
+	case strings.Contains(r, "LL"):
+		return fmt.Errorf("L Repeated")
+	case strings.Contains(r, "VV"):
+		return fmt.Errorf("V Repeated")
+	default:
+		return nil
+	}
+
+}
+
+func checkNum(n, lastNum, num int) int {
 	if lastNum > n {
 		return num - n
 	}
 
 	return num + n
+}
+
+func reverse(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
 }

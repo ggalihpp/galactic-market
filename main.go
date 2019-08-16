@@ -1,17 +1,26 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 
 	"github.com/ggalihpp/galactic-market/roman"
 )
 
 func main() {
 
-	x, err := roman.Rtoi("MCMXLIV")
-	if err != nil {
-		fmt.Println("ERRORTJCUSKS:: ", err.Error())
+	for {
+		reader := bufio.NewReader(os.Stdin)
+		fmt.Print("\nINSERT COMMAND::: ")
+
+		text, _ := reader.ReadString('\n')
+		r, e := roman.Rtoi(text)
+		if e != nil {
+			fmt.Println("ERROR!!!:: ", e.Error())
+		} else {
+			fmt.Println(r)
+		}
 	}
 
-	fmt.Println("HASILNYA:: ", x)
 }
