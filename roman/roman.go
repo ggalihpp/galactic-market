@@ -7,9 +7,10 @@ import (
 
 // Rtoi - Convert Roman numeral to numeric
 func Rtoi(r string) (res int, err error) {
+	var lastNum int
 
 	for _, v := range r {
-		var lastNum int
+		fmt.Println(strings.ToUpper(string(v)))
 
 		switch strings.ToUpper(string(v)) {
 		case "I":
@@ -43,6 +44,11 @@ func Rtoi(r string) (res int, err error) {
 }
 
 func checkNum(n, lastNum, num int) int {
+	fmt.Println("N: ", n)
+	fmt.Println("LastNum: ", lastNum)
+	fmt.Println("num: ", num)
+	fmt.Println("############################")
+
 	if lastNum > n {
 		return num - n
 	}
