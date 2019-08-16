@@ -5,45 +5,63 @@ import (
 	"strings"
 )
 
+var dict = map[string]int{
+	"I": 1,
+	"V": 5,
+	"X": 10,
+	"L": 50,
+	"C": 100,
+	"D": 500,
+	"M": 1000,
+}
+
 // Rtoi - Convert Roman numeral to numeric
 func Rtoi(r string) (res int, err error) {
 	var lastNum int
 
-	r = strings.TrimSuffix(r, "\n")
-	r = reverse(r)
+	r = strings.TrimSuffix(r, "\n") // remove new line
+	r = reverse(r)                  // reverse the string
 
-	err = checkRomRepeated(r)
+	err = checkRomRepeated(r) // check any repeated char
 	if err != nil {
 		return
 	}
 
 	for _, v := range r {
-		switch strings.ToUpper(string(v)) {
-		case "I":
-			res = checkNum(1, lastNum, res)
-			lastNum = 1
-		case "V":
-			res = checkNum(5, lastNum, res)
-			lastNum = 5
-		case "X":
-			res = checkNum(10, lastNum, res)
-			lastNum = 10
-		case "L":
-			res = checkNum(50, lastNum, res)
-			lastNum = 50
-		case "C":
-			res = checkNum(100, lastNum, res)
-			lastNum = 100
-		case "D":
-			res = checkNum(500, lastNum, res)
-			lastNum = 500
-		case "M":
-			res = checkNum(1000, lastNum, res)
-			lastNum = 1000
-		default:
-			err = fmt.Errorf("THEHELL!!!??")
+		if val, ok := dict[strings.ToUpper(string(v))]; ok {
+			res = checkNum(val, lastNum, res)
+			lastNum = val
+		} else {
+			err = fmt.Errorf("WRONG VALUE")
 			return
 		}
+
+		// switch strings.ToUpper(string(v)) {
+		// case "I":
+		// 	res = checkNum(1, lastNum, res)
+		// 	lastNum = 1
+		// case "V":
+		// 	res = checkNum(5, lastNum, res)
+		// 	lastNum = 5
+		// case "X":
+		// 	res = checkNum(10, lastNum, res)
+		// 	lastNum = 10
+		// case "L":
+		// 	res = checkNum(50, lastNum, res)
+		// 	lastNum = 50
+		// case "C":
+		// 	res = checkNum(100, lastNum, res)
+		// 	lastNum = 100
+		// case "D":
+		// 	res = checkNum(500, lastNum, res)
+		// 	lastNum = 500
+		// case "M":
+		// 	res = checkNum(1000, lastNum, res)
+		// 	lastNum = 1000
+		// default:
+		// 	err = fmt.Errorf("WRONG VALUE")
+		// 	return
+		// }
 	}
 
 	return
