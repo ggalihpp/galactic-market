@@ -24,9 +24,10 @@ func main() {
 
 		input.Msg(text)
 
-		fmt.Println("############################")
-		//spew.Dump(stored.RulesRoman)
-		fmt.Println("############################")
+		// fmt.Println("############################")
+		// spew.Dump(stored.MetalsValue)
+		// spew.Dump(stored.RulesRoman)
+		// fmt.Println("############################")
 
 	}
 

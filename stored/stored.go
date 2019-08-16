@@ -1,7 +1,21 @@
 package stored
 
+type rulesRoman map[string]string
+
+// CheckValue - will check value
+func (m *rulesRoman) CheckValue(value string) (key string, ok bool) {
+	for k, v := range *m {
+		if v == value {
+			key = k
+			ok = true
+			return
+		}
+	}
+	return
+}
+
 // RulesRoman - Contains custom rules for roman number (The default will set)
-var RulesRoman = map[string]string{
+var RulesRoman = rulesRoman{
 	"I": "I",
 	"V": "V",
 	"X": "X",
@@ -9,4 +23,11 @@ var RulesRoman = map[string]string{
 	"C": "C",
 	"D": "D",
 	"M": "M",
+}
+
+// MetalsValue -
+var MetalsValue = map[string]float64{
+	"GOLD":   0,
+	"SILVER": 0,
+	"IRON":   0,
 }
