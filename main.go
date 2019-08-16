@@ -12,7 +12,7 @@ func main() {
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("\nINSERT COMMAND::: ")
+		fmt.Print("INSERT COMMAND::: ")
 
 		text, _ := reader.ReadString('\n')
 		// r, e := roman.Rtoi(text)
@@ -23,6 +23,11 @@ func main() {
 		// }
 
 		input.Msg(text)
+
+		fmt.Println("############################")
+		//spew.Dump(stored.RulesRoman)
+		fmt.Println("############################")
+
 	}
 
 }
