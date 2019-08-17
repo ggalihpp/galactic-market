@@ -13,14 +13,17 @@ func getRomansVal(msg string) string {
 
 	x := strings.Split(msg, "HOW MUCH IS")
 	xx := strings.TrimSpace(x[1])
+	romans := strings.Split(strings.ToLower(xx), " ")
 
-	xxx := strings.Split(xx, " ")
+	if romans[len(romans)-1] != "?" {
+		return haveNoIdea()
+	}
 
-	for i := range xxx {
-		if val, ok := stored.RulesRoman.CheckValue(xxx[i]); ok {
+	for i := range romans {
+		if val, ok := stored.RulesRoman.CheckValue(strings.ToUpper(romans[i])); ok {
 			rom += val
 		} else {
-			if xxx[i] != "?" {
+			if romans[i] != "?" {
 				return haveNoIdea()
 			}
 		}
@@ -31,5 +34,5 @@ func getRomansVal(msg string) string {
 		return haveNoIdea()
 	}
 
-	return fmt.Sprintf("%v is %v", strings.Join(xxx, " "), val)
+	return fmt.Sprintf("%v is %v", strings.Join(romans[0:len(romans)-1], " "), val)
 }

@@ -47,5 +47,5 @@ func getMetalsValue(msg string) string {
 
 	romanVal = float64(rv)
 
-	return fmt.Sprintf("%v %v is %v Credits", strings.Join(romans, " "), strings.ToTitle(material), romanVal*materialVal)
+	return fmt.Sprintf("%v %v is %v Credits", strings.ToLower(strings.Join(romans, " ")), strings.Title(strings.ToLower(material)), romanVal*materialVal)
 }

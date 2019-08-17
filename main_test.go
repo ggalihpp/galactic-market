@@ -25,11 +25,15 @@ var transactionInput = map[string]string{ // INPUT:RESPONSE
 }
 
 func Test(t *testing.T) {
-	x := "aspkpgpkp"
+	//// INPUT INVENTORY
+	for _, v := range inventoryInput {
+		input.Msg(v)
+	}
 
-	tt := input.Msg(x)
-
-	if tt != "I have no idea what you are talking about" {
-		t.Error()
+	for k, v := range transactionInput {
+		res := input.Msg(k)
+		if res != v {
+			t.Errorf("Wrong response for \"%v\"", k)
+		}
 	}
 }

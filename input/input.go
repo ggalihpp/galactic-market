@@ -19,7 +19,7 @@ func Msg(originMsg string) string {
 	}
 
 	//// SAVING METALS VALUE
-	matched, err := regexp.MatchString(`^([A-Za-z\\s]*) ([A-Z]+[A-Za-z]+) is ([0-9]+) Credits$`, msg)
+	matched, err := regexp.MatchString("^([A-Za-z\\s]*) ([A-Z]+[A-Za-z]+) IS ([0-9]+) CREDITS$", msg)
 	if err != nil {
 		fmt.Println("RERR:: ", err.Error())
 		return haveNoIdea()
