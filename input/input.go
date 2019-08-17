@@ -160,7 +160,7 @@ func Msg(msg string) {
 
 		xxx := strings.Split(xx, " ")
 
-		for i := range xx {
+		for i := range xxx {
 			if val, ok := stored.RulesRoman.CheckValue(xxx[i]); ok {
 				rom += val
 			} else {
@@ -170,6 +170,14 @@ func Msg(msg string) {
 				}
 			}
 		}
+
+		val, err := roman.Rtoi(rom)
+		if err != nil {
+			fmt.Println("ERR: ", err.Error())
+			return
+		}
+
+		fmt.Println("IS ", val)
 
 	}
 
