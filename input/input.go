@@ -42,11 +42,9 @@ func Msg(msg string) {
 		crRaw := strings.Split(x[1], " ")
 		qtyRaw := strings.Split(x[0], " ")
 
-		spew.Dump(crRaw)
-		spew.Dump(qtyRaw)
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -55,14 +53,14 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				fmt.Println("RULES NOT FOUND!!!::: ", v)
+				haveNoIdea()
 				return
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -84,7 +82,7 @@ func Msg(msg string) {
 		spew.Dump(qtyRaw)
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -93,14 +91,14 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				fmt.Println("RULES NOT FOUND!!!::: ", v)
+				haveNoIdea()
 				return
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -119,11 +117,9 @@ func Msg(msg string) {
 		crRaw := strings.Split(x[1], " ")
 		qtyRaw := strings.Split(x[0], " ")
 
-		spew.Dump(crRaw)
-		spew.Dump(qtyRaw)
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -132,14 +128,14 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				fmt.Println("RULES NOT FOUND")
+				haveNoIdea()
 				return
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			fmt.Println(err.Error())
+			haveNoIdea()
 			return
 		}
 
@@ -151,7 +147,6 @@ func Msg(msg string) {
 	}
 
 	//// TRANSACTION
-
 	if strings.Contains(msg, "HOW MUCH IS") {
 		var rom string
 
@@ -165,7 +160,7 @@ func Msg(msg string) {
 				rom += val
 			} else {
 				if xxx[i] != "?" {
-					fmt.Println("RULES NOT FOUND")
+					haveNoIdea()
 					return
 				}
 			}
@@ -173,12 +168,64 @@ func Msg(msg string) {
 
 		val, err := roman.Rtoi(rom)
 		if err != nil {
-			fmt.Println("ERR: ", err.Error())
+			haveNoIdea()
 			return
 		}
 
 		fmt.Println("IS ", val)
-
+		return
 	}
 
+	if strings.Contains(msg, "HOW MANY CREDITS IS") {
+		var rom, material string
+		var romanVal, materialVal float64
+
+		x := strings.Split(msg, "HOW MANY CREDITS IS")
+		xx := strings.TrimSpace(x[1])
+
+		xxx := strings.Split(xx, " ")
+
+		if xxx[len(xxx)-1] != "?" {
+			haveNoIdea()
+			return
+		}
+
+		material = xxx[len(xxx)-2]
+
+		materialVal, found := stored.MetalsValue[material]
+		if !found {
+			haveNoIdea()
+			return
+		}
+
+		romans := xxx[0 : len(xxx)-2]
+
+		for i := range romans {
+			if val, ok := stored.RulesRoman.CheckValue(romans[i]); ok {
+				rom += val
+			} else {
+				if romans[i] != "?" {
+					haveNoIdea()
+					return
+				}
+			}
+		}
+
+		rv, err := roman.Rtoi(rom)
+		if err != nil {
+			haveNoIdea()
+			return
+		}
+
+		romanVal = float64(rv)
+
+		fmt.Println("RESULT:: ", romanVal*materialVal)
+		return
+	}
+
+	haveNoIdea()
+}
+
+func haveNoIdea() {
+	fmt.Println("I have no idea what you are talking about")
 }
