@@ -3,9 +3,9 @@ package stored
 type rulesRoman map[string]string
 
 // CheckValue - will check value
-func (m *rulesRoman) CheckValue(value string) (key string, ok bool) {
+func (m *rulesRoman) CheckValue(val string) (key string, ok bool) {
 	for k, v := range *m {
-		if v == value {
+		if v == val {
 			key = k
 			ok = true
 			return

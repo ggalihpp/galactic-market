@@ -22,7 +22,7 @@ func main() {
 		// 	fmt.Println(r)
 		// }
 
-		input.Msg(text)
+		fmt.Println(input.Msg(text))
 
 		// fmt.Println("############################")
 		// spew.Dump(stored.MetalsValue)

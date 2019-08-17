@@ -12,7 +12,7 @@ import (
 )
 
 // Msg - will check pattern
-func Msg(msg string) {
+func Msg(msg string) string {
 	msg = strings.ToUpper(msg)
 	msg = strings.TrimSuffix(msg, "\n") // remove new line
 	m := strings.Split(msg, " ")
@@ -24,8 +24,7 @@ func Msg(msg string) {
 			v := m[2]
 			if _, ok := roman.Dict[v]; ok {
 				stored.RulesRoman[v] = m[0]
-				fmt.Printf("Rules roman %v has been updated to %v\n", v, m[0])
-				return
+				return fmt.Sprintf("Rules roman %v has been updated to %v", v, m[0])
 			}
 		}
 	}
@@ -44,8 +43,8 @@ func Msg(msg string) {
 
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the quantity
@@ -53,21 +52,21 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				haveNoIdea()
-				return
+
+				return haveNoIdea()
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the value
 		value := float64(cr) / float64(quantity)
 		stored.MetalsValue["SILVER"] = value
-		return
+		return fmt.Sprintf("Silver value updated:: %v", value)
 	case strings.Contains(msg, "GOLD IS"):
 		var quantity int
 		var rom string
@@ -82,8 +81,8 @@ func Msg(msg string) {
 		spew.Dump(qtyRaw)
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the quantity
@@ -91,22 +90,22 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				haveNoIdea()
-				return
+
+				return haveNoIdea()
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the value
 		value := float64(cr) / float64(quantity)
 		stored.MetalsValue["GOLD"] = value
 
-		return
+		return fmt.Sprintf("GOLD value updated:: %v", value)
 	case strings.Contains(msg, "IRON IS"):
 		var quantity int
 		var rom string
@@ -119,8 +118,8 @@ func Msg(msg string) {
 
 		cr, err := strconv.Atoi(crRaw[0])
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the quantity
@@ -128,22 +127,22 @@ func Msg(msg string) {
 			if val, ok := stored.RulesRoman.CheckValue(v); ok {
 				rom += val
 			} else {
-				haveNoIdea()
-				return
+
+				return haveNoIdea()
 			}
 		}
 
 		quantity, err = roman.Rtoi(rom)
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		//// evaluate the value
 		value := float64(cr) / float64(quantity)
 		stored.MetalsValue["IRON"] = value
 
-		return
+		return fmt.Sprintf("IRON value updated:: %v", value)
 	}
 
 	//// TRANSACTION
@@ -160,20 +159,19 @@ func Msg(msg string) {
 				rom += val
 			} else {
 				if xxx[i] != "?" {
-					haveNoIdea()
-					return
+
+					return haveNoIdea()
 				}
 			}
 		}
 
 		val, err := roman.Rtoi(rom)
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
-		fmt.Println("IS ", val)
-		return
+		return fmt.Sprintf("Value is  %v", val)
 	}
 
 	if strings.Contains(msg, "HOW MANY CREDITS IS") {
@@ -186,16 +184,16 @@ func Msg(msg string) {
 		xxx := strings.Split(xx, " ")
 
 		if xxx[len(xxx)-1] != "?" {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		material = xxx[len(xxx)-2]
 
 		materialVal, found := stored.MetalsValue[material]
 		if !found {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		romans := xxx[0 : len(xxx)-2]
@@ -205,27 +203,26 @@ func Msg(msg string) {
 				rom += val
 			} else {
 				if romans[i] != "?" {
-					haveNoIdea()
-					return
+
+					return haveNoIdea()
 				}
 			}
 		}
 
 		rv, err := roman.Rtoi(rom)
 		if err != nil {
-			haveNoIdea()
-			return
+
+			return haveNoIdea()
 		}
 
 		romanVal = float64(rv)
 
-		fmt.Println("RESULT:: ", romanVal*materialVal)
-		return
+		return fmt.Sprintf("RESULT:: %v", romanVal*materialVal)
 	}
 
-	haveNoIdea()
+	return haveNoIdea()
 }
 
-func haveNoIdea() {
-	fmt.Println("I have no idea what you are talking about")
+func haveNoIdea() string {
+	return "I have no idea what you are talking about"
 }
