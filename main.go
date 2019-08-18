@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-
 	for {
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Print("INSERT COMMAND::: ")

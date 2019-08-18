@@ -77,7 +77,7 @@ git clone https://github.com/ggalihpp/galactic-market.git
 ```
 go to project folder
 ```
-`cd galactic-market`
+cd galactic-market
 ```
 build the project with GO MODULE enabled
 ```

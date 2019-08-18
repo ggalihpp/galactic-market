@@ -6,6 +6,8 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/ggalihpp/galactic-market/stored"
 )
 
 // Msg - will check pattern
@@ -14,6 +16,10 @@ func Msg(originMsg string) string {
 	msg = strings.TrimSuffix(msg, "\n") // remove new line
 	msg = strings.TrimSpace(msg)
 	m := strings.Split(msg, " ")
+
+	if strings.Contains(msg, "LIST") {
+		return list(msg)
+	}
 
 	//// STORED CUSTOM ROMAN RULES
 	if len(m) == 3 {
@@ -59,4 +65,26 @@ func haveNoIdea(errInput error) string {
 
 	return "I have no idea what you are talking about"
 
+}
+
+func list(msg string) string {
+	switch msg {
+	case "LIST MATERIALS":
+		var mtrls string
+
+		for k, v := range stored.MetalsValue {
+			mtrls += fmt.Sprintf("%v -> %v Credits\n", k, v)
+		}
+
+		return mtrls
+	case "LIST ROMANS":
+		var rmns string
+
+		for k, v := range stored.RulesRoman {
+			rmns += fmt.Sprintf("%v -> %v\n", k, v)
+		}
+
+		return rmns
+	}
+	return haveNoIdea(fmt.Errorf("Unknown subcommand of list"))
 }
