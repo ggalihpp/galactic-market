@@ -2,7 +2,9 @@ package input
 
 import (
 	"fmt"
+	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -21,8 +23,7 @@ func Msg(originMsg string) string {
 	//// SAVING METALS VALUE
 	matched, err := regexp.MatchString("^([A-Za-z\\s]*) ([A-Z]+[A-Za-z]+) IS ([0-9]+) CREDITS$", msg)
 	if err != nil {
-		fmt.Println("RERR:: ", err.Error())
-		return haveNoIdea()
+		return haveNoIdea(err)
 	}
 
 	if matched {
@@ -38,9 +39,24 @@ func Msg(originMsg string) string {
 		return getMetalsValue(msg)
 	}
 
-	return haveNoIdea()
+	return haveNoIdea(fmt.Errorf("Unrecognize input"))
 }
 
-func haveNoIdea() string {
+func haveNoIdea(errInput error) string {
+	var debugMode bool
+	dm, err := strconv.ParseBool(os.Getenv("DEBUG"))
+	if err != nil {
+		debugMode = false
+	} else {
+		debugMode = dm
+	}
+
+	if debugMode {
+		if errInput != nil {
+			return fmt.Sprintf("DEBUGMODE:: %v", errInput.Error())
+		}
+	}
+
 	return "I have no idea what you are talking about"
+
 }

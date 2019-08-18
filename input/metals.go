@@ -22,8 +22,7 @@ func insertMetals(input string) string {
 			mtrl = msgs[i-1]
 			crdts, err = strconv.Atoi(msgs[i+1])
 			if err != nil {
-				fmt.Println("ERORRR:: ", err.Error())
-				return haveNoIdea()
+				return haveNoIdea(err)
 			}
 		}
 	}
@@ -34,15 +33,13 @@ func insertMetals(input string) string {
 		if val, ok := stored.RulesRoman.CheckValue(v); ok {
 			rom += val
 		} else {
-
-			return haveNoIdea()
+			return haveNoIdea(fmt.Errorf("Roman %v not found", v))
 		}
 	}
 
 	qty, err = roman.Rtoi(rom)
 	if err != nil {
-		fmt.Println("ERORRR:: ", err.Error())
-		return haveNoIdea()
+		return haveNoIdea(err)
 	}
 
 	//// evaluate the value
@@ -62,14 +59,14 @@ func getMetalsValue(msg string) string {
 	xxx := strings.Split(xx, " ")
 
 	if xxx[len(xxx)-1] != "?" {
-		return haveNoIdea()
+		return haveNoIdea(fmt.Errorf("Last index not a question mark"))
 	}
 
 	material = xxx[len(xxx)-2]
 
 	materialVal, found := stored.MetalsValue[material]
 	if !found {
-		return haveNoIdea()
+		return haveNoIdea(fmt.Errorf("Material value for %v not found", material))
 	}
 
 	romans := xxx[0 : len(xxx)-2]
@@ -79,14 +76,14 @@ func getMetalsValue(msg string) string {
 			rom += val
 		} else {
 			if romans[i] != "?" {
-				return haveNoIdea()
+				return haveNoIdea(fmt.Errorf("Roman %v not found", romans[i]))
 			}
 		}
 	}
 
 	rv, err := roman.Rtoi(rom)
 	if err != nil {
-		return haveNoIdea()
+		return haveNoIdea(err)
 	}
 
 	romanVal = float64(rv)

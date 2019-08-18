@@ -18,7 +18,7 @@ func addCustomRomanRules(input []string) string {
 		}
 	}
 
-	return haveNoIdea()
+	return haveNoIdea(fmt.Errorf("Unrecognize input"))
 }
 
 func getRomansVal(msg string) string {
@@ -29,7 +29,7 @@ func getRomansVal(msg string) string {
 	romans := strings.Split(strings.ToLower(xx), " ")
 
 	if romans[len(romans)-1] != "?" {
-		return haveNoIdea()
+		return haveNoIdea(fmt.Errorf("Last index not a question mark"))
 	}
 
 	for i := range romans {
@@ -37,14 +37,14 @@ func getRomansVal(msg string) string {
 			rom += val
 		} else {
 			if romans[i] != "?" {
-				return haveNoIdea()
+				return haveNoIdea(fmt.Errorf("Roman %v not found", romans[i]))
 			}
 		}
 	}
 
 	val, err := roman.Rtoi(rom)
 	if err != nil {
-		return haveNoIdea()
+		return haveNoIdea(err)
 	}
 
 	return fmt.Sprintf("%v is %v", strings.Join(romans[0:len(romans)-1], " "), val)
