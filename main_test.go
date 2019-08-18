@@ -16,7 +16,7 @@ var inventoryInput = []string{
 	"pish pish Iron is 3910 Credits ",
 }
 
-var transactionInput = map[string]string{ // INPUT:RESPONSE
+var transactionInput = map[string]string{ // INPUT:EXPECTED RESPONSE
 	"how much is pish tegj glob glob ?":                                       "pish tegj glob glob is 42",
 	"how many Credits is glob prok Silver ?":                                  "glob prok Silver is 68 Credits",
 	"how many Credits is glob prok Gold ?":                                    "glob prok Gold is 57800 Credits",

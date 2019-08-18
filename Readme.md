@@ -1,7 +1,6 @@
 # GALAXY MERCHANT TRADING GUIDE
 
 ## Problem Description 
-
 You decided to give up on earth after the latest financial collapse left 99.99% of the earth's
 population with 0.01% of the wealth. Luckily, with the scant sum of money that is left in your
 account, you are able to afford to rent a spaceship, leave earth, and fly all over the galaxy to sell
@@ -38,7 +37,6 @@ A number written in Arabic numerals can be broken into digits. For example, 1903
 In the above example, 1,000 = M, 900 = CM, and 3 = III. Therefore, 1903 = MCMIII.
 
 ## Test case
-
 #### Input:
 ```
 glob is I
@@ -63,5 +61,49 @@ glob prok Gold is 57800 Credits
 glob prok Iron is 782 Credits
 I have no idea what you are talking about 
 ```
+---
+# Project Guidelines
 
-## 
+## Prerequisites
+Golang version 1.11.x or later that support *GO MODULES*
+check the golang version with `go version` command
+
+## Installation
+note: This installation guide assumed your os is unix based.
+
+clone the project
+```
+git clone https://github.com/ggalihpp/galactic-market.git
+```
+go to project folder
+```
+`cd galactic-market`
+```
+build the project with GO MODULE enabled
+```
+GO111MODULE=on go build .
+```
+*galactic-market* binary will created run with
+```
+./galactic-market
+```
+
+## Unit Test
+Run this command to run unit test, if this is your first time running the project enable the GO MODULE
+```
+GO111MODULE=on go test
+```
+The test will running test case [above](#test-case)
+
+to change the test case, change the value ov variable `inventoryInput` and `transactionInput` inside `main_test.go` file
+
+## Development
+To run the project directly use `run` command (If run for the first time, activate go module)
+```
+go run main.go
+```
+
+You can use DEBUG mode to print the error of the input instead of printing default message
+```
+DEBUG=true go run main.go
+```
