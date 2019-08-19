@@ -25,8 +25,8 @@ var RulesRoman = rulesRoman{
 	"M": "M",
 }
 
-// MetalsValue -
-var MetalsValue = map[string]float64{
+// MaterialsValue -
+var MaterialsValue = map[string]float64{
 	"GOLD":   0,
 	"SILVER": 0,
 	"IRON":   0,

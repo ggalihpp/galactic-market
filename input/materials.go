@@ -9,7 +9,7 @@ import (
 	"github.com/ggalihpp/galactic-market/stored"
 )
 
-func insertMetals(input string) string {
+func insertMaterial(input string) string {
 	var err error
 	var mtrl, rom string
 	var crdts, mtrlIdx, qty int
@@ -44,12 +44,12 @@ func insertMetals(input string) string {
 
 	//// evaluate the value
 	value := float64(crdts) / float64(qty)
-	stored.MetalsValue[mtrl] = value
+	stored.MaterialsValue[mtrl] = value
 
 	return fmt.Sprintf("%v value updated:: %v", strings.Title(mtrl), value)
 }
 
-func getMetalsValue(msg string) string {
+func getMaterialValue(msg string) string {
 	var rom, material string
 	var romanVal, materialVal float64
 
@@ -64,7 +64,7 @@ func getMetalsValue(msg string) string {
 
 	material = xxx[len(xxx)-2]
 
-	materialVal, found := stored.MetalsValue[material]
+	materialVal, found := stored.MaterialsValue[material]
 	if !found {
 		return haveNoIdea(fmt.Errorf("Material value for %v not found", material))
 	}

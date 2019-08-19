@@ -33,7 +33,7 @@ func Msg(originMsg string) string {
 	}
 
 	if matched {
-		return insertMetals(msg)
+		return insertMaterial(msg)
 	}
 
 	//// TRANSACTION
@@ -42,7 +42,7 @@ func Msg(originMsg string) string {
 	}
 
 	if strings.Contains(msg, "HOW MANY CREDITS IS") {
-		return getMetalsValue(msg)
+		return getMaterialValue(msg)
 	}
 
 	return haveNoIdea(fmt.Errorf("Unrecognize input"))
@@ -72,7 +72,7 @@ func list(msg string) string {
 	case "LIST MATERIALS":
 		var mtrls string
 
-		for k, v := range stored.MetalsValue {
+		for k, v := range stored.MaterialsValue {
 			mtrls += fmt.Sprintf("%v -> %v Credits\n", k, v)
 		}
 
@@ -86,5 +86,5 @@ func list(msg string) string {
 
 		return rmns
 	}
-	return haveNoIdea(fmt.Errorf("Unknown subcommand of list"))
+	return "Insert command \"List materials\" or \"List romans\""
 }
