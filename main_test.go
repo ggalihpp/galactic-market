@@ -14,6 +14,8 @@ var inventoryInput = []string{
 	"glob glob Silver is 34 Credits",
 	"glob prok Gold is 57800 Credits",
 	"pish pish Iron is 3910 Credits ",
+	"glob glob glob Dirt is 7500 Credits",
+	"pish Wood is 1000 Credits",
 }
 
 var transactionInput = map[string]string{ // INPUT:EXPECTED RESPONSE
@@ -21,6 +23,8 @@ var transactionInput = map[string]string{ // INPUT:EXPECTED RESPONSE
 	"how many Credits is glob prok Silver ?":                                  "glob prok Silver is 68 Credits",
 	"how many Credits is glob prok Gold ?":                                    "glob prok Gold is 57800 Credits",
 	"how many Credits is glob prok Iron ?":                                    "glob prok Iron is 782 Credits",
+	"how many Credits is glob Dirt ?":                                         "glob Dirt is 2500 Credits",
+	"how many Credits is glob glob glob Wood ?":                               "glob glob glob Wood is 300 Credits",
 	"how much wood could a woodchuck chuck if a woodchuck could chuck wood ?": "I have no idea what you are talking about",
 }
 
@@ -33,7 +37,7 @@ func Test(t *testing.T) {
 	for k, v := range transactionInput {
 		res := input.Msg(k)
 		if res != v {
-			t.Errorf("Wrong response for \"%v\"", k)
+			t.Errorf("Wrong response for \"%v\" \nExpected: %v \n Got: %v", k, v, res)
 		}
 	}
 }
