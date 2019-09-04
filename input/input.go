@@ -45,6 +45,11 @@ func Msg(originMsg string) string {
 		return getMaterialValue(msg)
 	}
 
+	//// COMPARISON
+	if m[0] == "IS" {
+		return comparison(msg)
+	}
+
 	return haveNoIdea(fmt.Errorf("Unrecognize input"))
 }
 
