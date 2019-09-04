@@ -51,8 +51,12 @@ func getRomansVal(msg string) string {
 }
 
 func comparison(msg string) string {
-
+	var found bool
 	var left, right string
+
+	var leftMtrl float64 = 1
+	var rightMtrl float64 = 1
+
 	var ti, isSmaller bool
 	msgArr := strings.Split(msg, " ")
 	msgArr = msgArr[1:len(msgArr)]
@@ -84,26 +88,39 @@ func comparison(msg string) string {
 			}
 		} else {
 			if msgArr[i] != "?" {
-				fmt.Println("SJOSOS")
-
-				return haveNoIdea(fmt.Errorf("Roman %v not found", msgArr[i]))
+				if !ti {
+					leftMtrl, found = stored.MaterialsValue[msgArr[i]]
+					if !found {
+						return haveNoIdea(fmt.Errorf("Material value for %v not found", msgArr[i]))
+					}
+					continue
+				} else {
+					rightMtrl, found = stored.MaterialsValue[msgArr[i]]
+					if !found {
+						return haveNoIdea(fmt.Errorf("Material value for %v not found", msgArr[i]))
+					}
+					continue
+				}
 			}
 		}
 	}
 
-	leftVal, err := roman.Rtoi(left)
+	leftValRom, err := roman.Rtoi(left)
 	if err != nil {
 		return haveNoIdea(err)
 	}
 
-	rightVal, err := roman.Rtoi(right)
+	rightValRom, err := roman.Rtoi(right)
 	if err != nil {
 		return haveNoIdea(err)
 	}
 
-	if (leftVal < rightVal && isSmaller) || (leftVal > rightVal && !isSmaller) {
+	leftMtrl = leftMtrl * float64(leftValRom)
+	rightMtrl = rightMtrl * float64(rightValRom)
+
+	if (leftMtrl < rightMtrl && isSmaller) || (leftMtrl > rightMtrl && !isSmaller) {
 		return "yes"
-	} else if leftVal == rightVal {
+	} else if leftMtrl == rightMtrl {
 		return "same value"
 	} else {
 		return "no"

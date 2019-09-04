@@ -28,6 +28,8 @@ var transactionInput = map[string]string{ // INPUT:EXPECTED RESPONSE
 	"how much wood could a woodchuck chuck if a woodchuck could chuck wood ?": "I have no idea what you are talking about",
 	"is glob glob glob credits larger than glob glob":                         "yes",
 	"is pish smaller than prok":                                               "no",
+	"is glob silver smaller than glob gold":                                   "yes",
+	"is glob silver larger than glob gold":                                    "no",
 }
 
 func Test(t *testing.T) {
